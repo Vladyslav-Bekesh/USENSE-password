@@ -1,17 +1,28 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <div class="flex gap-4">
+  <label for="" class="block">
+    Type your password on english
     <input
       type="password"
       value=""
-      placeholder="Type your future password"
-      class="text-blue-800 border py-2 px-3 h-10 rounded-md w-56"
-      appFocus
+      placeholder="password"
+      class="text-blue-800 mt-3 block border py-2 px-3 h-10 rounded-md w-56"
       formControlName="password"
     />
+  </label>
 
-    <button type="submit" class="border border-blue-800 rounded-md py-2 px-3">
-      Reset password
-    </button>
-  </div>
-  <app-password-strength [passwordToCheck]="password.value" ></app-password-strength>
+  <app-password-strength
+    [passwordToCheck]="password.value"
+  ></app-password-strength>
+
+  <button
+    [disabled]="!form.valid"
+    type="submit"
+    class="border-2 rounded-md py-2 px-3 mt-4"
+    [ngClass]="{
+      'border-gray-500': !form.valid,
+      'border-yellow-300': form.valid
+    }"
+  >
+    Reset password
+  </button>
 </form>
