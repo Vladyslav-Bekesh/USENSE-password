@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FormComponent implements OnInit {
   minSymbols = 8;
+  
   form = new FormGroup({
     password: new FormControl<string>(
       '',
