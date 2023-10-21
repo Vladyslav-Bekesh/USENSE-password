@@ -17,13 +17,16 @@ export class PasswordStrengthComponent implements OnChanges {
   bar1: string = '';
   bar2: string = '';
 
-  constructor() { }
-
   @Input() public passwordToCheck: string = '';
 
   @Output() passwordStrength = new EventEmitter<boolean>();
 
-  private colors = ['darkred', 'orange', 'yellowgreen'];
+  private gray = 'bg-gray-400';
+  private red = 'bg-red-600';
+  private yellow = 'bg-yellow-500';
+  private green = 'bg-green-600';
+
+  private colors = [this.red, this.yellow, this.green];
 
   checkStrength(password: string) {
     let force = 0;
@@ -40,7 +43,6 @@ export class PasswordStrengthComponent implements OnChanges {
         force += 1;
       }
     });
-    console.log(force);
 
     return force;
   }
@@ -48,7 +50,7 @@ export class PasswordStrengthComponent implements OnChanges {
   private getColor(strength: number) {
     return {
       index: strength,
-      color: this.colors[strength-1],
+      color: this.colors[strength - 1],
     };
   }
 
@@ -61,10 +63,10 @@ export class PasswordStrengthComponent implements OnChanges {
   ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
     const password = changes['passwordToCheck'].currentValue;
 
-    this.setBarColors(3, '#DDD');
+    this.setBarColors(3, this.gray);
 
     if (password.length > 0 && password.length <= 7) {
-      this.setBarColors(3, 'darkred');
+      this.setBarColors(3, this.red);
     }
     if (password.length >= 8) {
       const { index, color } = this.getColor(this.checkStrength(password));
