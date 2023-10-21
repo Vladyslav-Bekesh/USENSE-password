@@ -9,11 +9,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class FormComponent implements OnInit {
   minSymbols = 8;
   form = new FormGroup({
-    title: new FormControl<string>(
+    password: new FormControl<string>(
       '',
       [
         Validators.required,
-        Validators.pattern(/^[A-z0-9]*$/),
         Validators.minLength(this.minSymbols),
       ]
     )
@@ -23,10 +22,10 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  get title() { return this.form.controls.title as FormControl }
+  get password() { return this.form.controls.password as FormControl }
 
   submit() {
     console.log(this.form.value);
-    console.log(this.title.errors);
+    console.log(this.password.errors);
   }
 }

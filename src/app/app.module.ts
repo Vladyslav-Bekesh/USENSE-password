@@ -6,13 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/form/form.component';
-import { IndicationSectionComponent } from './components/indication-section/indication-section.component';
+import { PasswordStrengthComponent } from './components/password-strength/password-strength.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    IndicationSectionComponent
+    PasswordStrengthComponent
   ],
   imports: [
     BrowserModule,
