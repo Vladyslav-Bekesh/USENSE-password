@@ -1,16 +1,21 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+} from '@angular/core';
 
 @Component({
   selector: 'app-password-strength',
   styleUrls: ['./password-strength.component.css'],
   templateUrl: './password-strength.component.html',
 })
-
 export class PasswordStrengthComponent implements OnChanges {
   bar0: string = '';
   bar1: string = '';
   bar2: string = '';
-
 
   constructor() { }
 
@@ -18,10 +23,7 @@ export class PasswordStrengthComponent implements OnChanges {
 
   @Output() passwordStrength = new EventEmitter<boolean>();
 
-  private colors = ['darkred', 'orangered', 'orange', 'yellowgreen'];
-
-  message: string = '';
-
+  private colors = ['darkred', 'orange', 'yellowgreen'];
 
   checkStrength(password: string) {
     let force = 0;
@@ -37,9 +39,23 @@ export class PasswordStrengthComponent implements OnChanges {
       if (flag) {
         force += 1;
       }
-    })
+    });
+    console.log(force);
 
     return force;
+  }
+
+  private getColor(strength: number) {
+    return {
+      index: strength,
+      color: this.colors[strength-1],
+    };
+  }
+
+  private setBarColors(count: number, color: string) {
+    for (let i = 0; i < count; i++) {
+      (this as any)['bar' + i] = color;
+    }
   }
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
@@ -48,24 +64,11 @@ export class PasswordStrengthComponent implements OnChanges {
     this.setBarColors(3, '#DDD');
 
     if (password.length > 0 && password.length <= 7) {
-      this.setBarColors(3, 'darkred')
+      this.setBarColors(3, 'darkred');
     }
     if (password.length >= 8) {
       const { index, color } = this.getColor(this.checkStrength(password));
       this.setBarColors(index, color);
-    }
-  }
-
-  private getColor(strength: number) {
-    return {
-      index: strength ,
-      color: this.colors[strength ],
-    };
-  }
-
-  private setBarColors(count: number, color: string) {
-    for (let i = 0; i < count; i++) {
-      (this as any)['bar' + i] = color;
     }
   }
 }
