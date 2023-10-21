@@ -13,18 +13,18 @@ import {
   templateUrl: './password-strength.component.html',
 })
 export class PasswordStrengthComponent implements OnChanges {
+  private gray = 'gray';
+  private red = 'red';
+  private yellow = 'yellow';
+  private green = 'green';
+
   bar0: string = '';
   bar1: string = '';
   bar2: string = '';
 
   @Input() public passwordToCheck: string = '';
 
-  @Output() passwordStrength = new EventEmitter<boolean>();
-
-  private gray = 'bg-gray-400';
-  private red = 'bg-red-600';
-  private yellow = 'bg-yellow-500';
-  private green = 'bg-green-600';
+  constructor() { }
 
   private colors = [this.red, this.yellow, this.green];
 
@@ -67,8 +67,11 @@ export class PasswordStrengthComponent implements OnChanges {
 
     if (password.length > 0 && password.length <= 7) {
       this.setBarColors(3, this.red);
+      console.log('too short');
     }
+    
     if (password.length >= 8) {
+      console.log('cheking...');
       const { index, color } = this.getColor(this.checkStrength(password));
       this.setBarColors(index, color);
     }
